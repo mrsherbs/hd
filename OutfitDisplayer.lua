@@ -6,6 +6,7 @@ local ui = player.PlayerGui:WaitForChild("MainUI")
 local accessories = {}
 local currentOutfit = nil
 
+-- Clear UI
 local function clearGui(gui)
 	for i, element in pairs(gui:GetChildren()) do
 		if element.Name ~= "Template" and element:IsA("ImageButton") then
@@ -14,6 +15,7 @@ local function clearGui(gui)
 	end
 end
 
+-- Display Item
 local function displayItem(item)
 	local template = ui.OutfitViewer.ItemsContainer.Template:Clone()
 	local url = "rbxthumb://type=Asset&id="
@@ -30,6 +32,7 @@ local function displayItem(item)
 	template.Parent = ui.OutfitViewer.ItemsContainer
 end
 
+-- Display all accessories
 for _, display in pairs(workspace.Displays:GetChildren()) do
 	accessories[display] = {}
 
@@ -94,6 +97,7 @@ ui.Left.ResetAvatar.Activated:Connect(function()
 	repStorage.OutfitSystem.ResetAvatar:FireServer()
 end)
 
+-- Load
 ui.LoadUser.Close.Activated:Connect(function()
 	ui.LoadUser.Visible = false
 end)
@@ -102,6 +106,7 @@ ui.LoadUser.Request.Activated:Connect(function()
 	repStorage.OutfitSystem.Request:FireServer(ui.LoadUser.TextBox.Text)
 end)
 
+-- Update when player leaves area
 ui.Left.OutfitLoader.Activated:Connect(function()
 	if (player.Character.HumanoidRootPart.Position - Vector3.new(-101.5, 5.5, -24.5)).Magnitude > 50 then
 		repStorage.OutfitSystem.Teleport:FireServer()
@@ -110,6 +115,7 @@ ui.Left.OutfitLoader.Activated:Connect(function()
 	end
 end)
 
+-- CLose
 ui.OutfitViewer.Close.Activated:Connect(function()
 	clearGui(ui.OutfitViewer.ItemsContainer)
 	ui.OutfitViewer.Visible = false
